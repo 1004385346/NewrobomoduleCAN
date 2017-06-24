@@ -22,7 +22,7 @@ void CRobomodule_due_CAN::resetdriver(int group=0,int number=0)
     outgoing.data.high=0x55555555;
     outgoing.data.low=0x55555555;
     Can0.sendFrame(outgoing);
-    delay(500);
+    delay(50);
 }
 void CRobomodule_due_CAN::setmode(int group=0,int number=0,int mode=3 )
 {
@@ -36,7 +36,7 @@ void CRobomodule_due_CAN::setmode(int group=0,int number=0,int mode=3 )
     outgoing.data.low=0x55555555;
     outgoing.data.bytes[0]=mode;
     Can0.sendFrame(outgoing);
-    delay(500);
+    delay(50);
 }
 
 void CRobomodule_due_CAN::speedwheel(int temp_pwm,int temp_velocity,int group=0,int number=0)
@@ -52,6 +52,19 @@ void CRobomodule_due_CAN::speedwheel(int temp_pwm,int temp_velocity,int group=0,
     outgoing.data.bytes[1] = ( char)(temp_pwm & 0xff);
     outgoing.data.bytes[2] = ( char)((temp_velocity>>8) & 0xff);
     outgoing.data.bytes[3] = ( char)(temp_velocity & 0xff);
+    Can0.sendFrame(outgoing);
+}
+void CRobomodule_due_CAN::speedwheel(int temp_pwm,int group=0,int number=0)
+{
+    //CAN_FRAME outgoing;
+    outgoing.id = ((uint32_t)group)<<8|(uint32_t)(((number<<4)|0x02)&0xf2);
+    outgoing.extended = false;
+    outgoing.length=8;
+    outgoing.priority = 4; //0-15 lower is higher priority
+    outgoing.data.high=0x55555555;
+    outgoing.data.low=0x55555555;
+    outgoing.data.bytes[0] = ( char)((temp_pwm>>8)&0xff);
+    outgoing.data.bytes[1] = ( char)(temp_pwm & 0xff);
     Can0.sendFrame(outgoing);
 }
 void CRobomodule_due_CAN::initdriver(int baud=CAN_BPS_1000K,int group=0,int number=0,int mode=3)

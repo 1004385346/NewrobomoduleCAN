@@ -26,4 +26,5 @@ public:
     void initdriver(int baud,int group,int number,int mode);
     
     void speedwheel(int temp_pwm,int temp_velocity,int group,int number);
+    void speedwheel(int temp_pwm,int group,int number);
 };
