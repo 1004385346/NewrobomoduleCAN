@@ -22,7 +22,7 @@ void CRobomodule_due_CAN::resetdriver(int group=0,int number=0)
     outgoing.data.high=0x55555555;
     outgoing.data.low=0x55555555;
     Can0.sendFrame(outgoing);
-    delay(50);
+    delay(500);
 }
 void CRobomodule_due_CAN::setmode(int group=0,int number=0,int mode=3 )
 {
@@ -36,7 +36,7 @@ void CRobomodule_due_CAN::setmode(int group=0,int number=0,int mode=3 )
     outgoing.data.low=0x55555555;
     outgoing.data.bytes[0]=mode;
     Can0.sendFrame(outgoing);
-    delay(50);
+    delay(100);
 }
 
 void CRobomodule_due_CAN::speedwheel(int temp_pwm,int temp_velocity,int group=0,int number=0)
